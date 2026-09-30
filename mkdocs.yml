@@ -1,0 +1,10 @@
+site_name: ИТМО Веб-программирование 2026-2027. Криличевский Максим K3339
+
+theme:
+  name: material
+  language: ru
+
+nav:
+  - Главная: index.md
+  - ЛР1:
+      - Отчёт: lr1/report.md
