@@ -1,0 +1,13 @@
+{% extends "conferences/base.html" %}
+
+{% block title %}Заявка на выступление{% endblock %}
+
+{% block content %}
+<h2>Выступление на конференции {{ conference.title }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Подать заявку</button>
+</form>
+{% endblock %}

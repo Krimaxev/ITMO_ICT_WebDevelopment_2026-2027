@@ -1,0 +1,11 @@
+{% extends "conferences/base.html" %}
+
+{% block content %}
+<h2>Удалить заявку?</h2>
+<p>{{ application.presentation_title }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Подтвердить удаление</button>
+</form>
+{% endblock %}

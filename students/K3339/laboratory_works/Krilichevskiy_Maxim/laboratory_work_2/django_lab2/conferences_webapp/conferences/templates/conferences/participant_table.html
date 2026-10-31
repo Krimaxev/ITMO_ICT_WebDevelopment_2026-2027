@@ -1,0 +1,31 @@
+<div class="table-container" role="region" aria-label="Участники конференций" tabindex="0">
+<table>
+    <thead><tr><th>Конференция</th><th>Участник</th><th>Выступление</th><th>Результат</th></tr></thead>
+    <tbody>
+    {% for participant in participants %}
+    <tr>
+        <td><a href="{% url 'conference_detail' participant.conference_id %}">{{ participant.conference.title }}</a></td>
+        <td>{{ participant.user.username }}</td>
+        <td>{{ participant.presentation_title }}</td>
+        <td>
+            {% if participant.recommended %}
+            <span class="result-badge result-positive">Рекомендовано к публикации</span>
+            {% else %}
+            <span class="result-badge result-negative">Не рекомендовано к публикации</span>
+            {% endif %}
+            {% if user.is_staff or user.is_superuser %}
+            <form class="inline-form" method="post" action="{% url 'set_recommendation' participant.id %}">
+                {% csrf_token %}
+                {% if participant.recommended %}
+                <button class="moderation-button" name="recommended" value="false" type="submit">Не рекомендовать к публикации</button>
+                {% else %}
+                <button class="moderation-button" name="recommended" value="true" type="submit">Рекомендовать к публикации</button>
+                {% endif %}
+            </form>
+            {% endif %}
+        </td>
+    </tr>
+    {% empty %}<tr><td colspan="4">Участников пока нет.</td></tr>{% endfor %}
+    </tbody>
+</table>
+</div>

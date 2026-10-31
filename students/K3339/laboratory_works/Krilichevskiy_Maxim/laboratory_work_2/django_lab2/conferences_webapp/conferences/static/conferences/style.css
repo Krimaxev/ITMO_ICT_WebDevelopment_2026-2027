@@ -1,0 +1,189 @@
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    color: #182433;
+    background: #f5f7fa;
+}
+
+a { color: #17365d; text-underline-offset: 3px; }
+a:hover { color: #305d91; }
+
+header { background: #17365d; color: white; padding: 24px; }
+header h1 { margin: 0 0 16px; }
+header nav { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 24px; }
+header a { color: white; text-decoration: none; }
+header a:hover { color: white; text-decoration: underline; }
+header nav span { overflow-wrap: anywhere; }
+
+main { max-width: 1148px; margin: 30px auto; padding: 0 24px; }
+footer { padding: 16px 24px; color: #566577; }
+
+.conference-card {
+    background: white;
+    border: 1px solid #dce2e9;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    overflow-wrap: anywhere;
+}
+.conference-card h3 { margin-top: 0; color: #17365d; }
+h4 { margin-bottom: 8px; }
+h4 + p { margin-top: 0; }
+
+form {
+    max-width: 468px;
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid #dce2e9;
+}
+form input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]),
+form textarea, form select {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border: 1px solid #aebac8;
+    border-radius: 6px;
+    font: inherit;
+}
+button {
+    background: #17365d;
+    color: white;
+    padding: 10px 18px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font: inherit;
+    cursor: pointer;
+    white-space: normal;
+}
+button:hover { background: #264f7e; }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+    outline: 3px solid #d58a00;
+    outline-offset: 3px;
+}
+.inline-form { display: inline-flex; max-width: none; margin: 0; padding: 0; border: 0; background: transparent; }
+header .inline-form button { border-color: #a6bdd8; }
+td .inline-form { display: flex; margin-top: 10px; }
+td button { padding: 8px 12px; font-size: 14px; }
+
+.table-container {
+    max-width: 100%;
+    overflow-x: auto;
+    margin: 16px 0 28px;
+    background: white;
+    border: 1px solid #dce2e9;
+    border-radius: 10px;
+}
+table { width: 100%; min-width: 680px; table-layout: fixed; border-collapse: collapse; }
+th, td { padding: 14px 16px; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+th { background: #eaf0f7; color: #17365d; }
+th:nth-child(1) { width: 24%; }
+th:nth-child(2) { width: 15%; }
+th:nth-child(3) { width: 34%; }
+th:nth-child(4) { width: 27%; }
+tbody tr + tr { border-top: 1px solid #dce2e9; }
+.application-actions { display: flex; flex-wrap: wrap; gap: 12px 24px; margin: 12px 0 24px; }
+
+@media (max-width: 600px) {
+    header { padding: 20px 16px; }
+    header h1 { font-size: 26px; }
+    main { padding: 0 16px; margin: 24px auto; }
+    .conference-card, form { padding: 18px; }
+    .inline-form { padding: 0; }
+}
+
+/* Заявки, участники и отзывы на странице конференции. */
+.content-section { margin: 32px 0; }
+.section-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 20px;
+    margin-bottom: 16px;
+}
+.section-heading h2 { margin: 0; font-size: 22px; line-height: 1.3; color: #17365d; }
+.button, .button:visited {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    padding: 10px 16px;
+    border: 1px solid #17365d;
+    border-radius: 8px;
+    color: white;
+    background: #17365d;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-decoration: none;
+    text-align: center;
+}
+.button:hover { background: #264f7e; color: white; }
+.button-secondary, .button-secondary:visited { color: #17365d; background: white; border-color: #bbcbdc; }
+.button-secondary:hover { color: #17365d; background: #edf3f9; }
+.button-danger, .button-danger:visited { color: #a72c35; background: #fff7f7; border-color: #efc6ca; }
+.button-danger:hover { color: #90212a; background: #ffecee; }
+.application-list, .review-list { display: grid; gap: 16px; }
+.application-card, .review-card, .empty-state {
+    margin: 0;
+    padding: 22px 24px;
+    background: white;
+    border: 1px solid #dce2e9;
+    border-radius: 12px;
+    overflow-wrap: anywhere;
+}
+.application-card h3 { margin: 0; font-size: 17px; font-weight: 600; color: #182433; }
+.application-card .application-actions { margin: 16px 0 0; gap: 10px; }
+.content-section .table-container { margin: 0; }
+.result-badge {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    line-height: 1.4;
+    font-weight: 600;
+}
+.result-positive { color: #1d6446; background: #e8f5ed; }
+.result-negative { color: #655161; background: #f1edf1; }
+.table-container td .inline-form {
+    display: block;
+    width: auto;
+    max-width: none;
+    margin: 10px 0 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+}
+.table-container .moderation-button {
+    max-width: 100%;
+    padding: 7px 10px;
+    border: 1px solid #c4d1e0;
+    border-radius: 6px;
+    background: #f6f8fb;
+    color: #17365d;
+    font-size: 12px;
+    line-height: 1.4;
+    text-align: left;
+}
+.table-container .moderation-button:hover { background: #e8eff7; }
+.review-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+.review-heading strong { color: #17365d; font-size: 17px; }
+.rating { padding: 5px 10px; border-radius: 6px; background: #eaf0f7; color: #17365d; font-size: 13px; font-weight: 600; }
+.review-period, .review-date { font-size: 13px; color: #586779; }
+.review-period { margin: 12px 0 16px; }
+.review-text p { margin: 0 0 12px; }
+.review-date { margin: 16px 0 0; padding-top: 12px; border-top: 1px solid #e8edf3; }
+.empty-state { color: #586779; }
+
+@media (max-width: 600px) {
+    .content-section { margin: 26px 0; }
+    .section-heading h2 { font-size: 20px; }
+    .application-card, .review-card, .empty-state { padding: 18px; }
+    .table-container th, .table-container td { padding: 12px; }
+}
