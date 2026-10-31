@@ -1,0 +1,34 @@
+{% extends "conferences/base.html" %}
+
+{% block title %}Каталог конференций{% include "conferences/pagination.html" %}
+{% endblock %}
+
+{% block content %}
+<h1>Список научных конференций</h1>
+
+<form method="get">
+    <input
+            type="search"
+            name="q"
+            value="{{ query }}"
+            placeholder="Название, тематика или город"
+    >
+    <button type="submit">Найти</button>
+</form>
+
+{% for conference in conferences %}
+<article class="conference-card">
+    <h3>
+        <a href="{% url 'conference_detail' conference.id %}">
+            {{ conference.title }}
+        </a>
+    </h3>
+    <p>Место проведения: {{ conference.location }}</p>
+    <p>Дата начала: {{ conference.start_date|date:"d.m.Y" }}</p>
+    <p>Дата окончания: {{ conference.end_date|date:"d.m.Y" }}</p>
+</article>
+{% empty %}
+<p>Конференций пока нет</p>
+{% endfor %}
+{% include "conferences/pagination.html" %}
+{% endblock %}

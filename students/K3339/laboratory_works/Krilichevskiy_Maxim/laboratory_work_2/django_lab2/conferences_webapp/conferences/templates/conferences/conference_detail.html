@@ -1,0 +1,72 @@
+
+{% extends "conferences/base.html" %}
+
+{% block title %}{{ conference.title }}{% endblock %}
+
+{% block content %}
+
+<article class="conference-card">
+    <h3>{{ conference.title }}</h3>
+    <p>Место проведения: {{ conference.location }}</p>
+    <p>Дата начала: {{ conference.start_date|date:"d.m.Y" }}</p>
+    <p>Дата окончания: {{ conference.end_date|date:"d.m.Y" }}</p>
+    <p><strong>Тематики:</strong> {{ conference.topic|default:"Не указаны" }}</p>
+    <h4>Описание конференции</h4>{{ conference.description|default:"Описание пока не добавлено."|linebreaks }}
+    <h4>Описание места проведения</h4>{{ conference.venue_description|default:"Описание места пока не добавлено."|linebreaks }}
+    <h4>Условия участия</h4>{{ conference.participation_terms|default:"Условия участия пока не указаны."|linebreaks }}
+</article>
+
+<section class="content-section" aria-labelledby="applications-heading">
+    <div class="section-heading">
+        <h2 id="applications-heading">Мои заявки</h2>
+        {% if user.is_authenticated %}
+        <a class="button" href="{% url 'apply_to_conference' conference.id %}">Подать заявку на выступление</a>
+        {% endif %}
+    </div>
+    {% if user.is_authenticated %}
+    <div class="application-list">
+        {% for application in applications %}
+        <article class="application-card">
+            <h3>{{ application.presentation_title }}</h3>
+            <div class="application-actions">
+                <a class="button button-secondary" href="{% url 'edit_application' application.id %}">Редактировать</a>
+                <a class="button button-danger" href="{% url 'delete_application' application.id %}">Удалить</a>
+            </div>
+        </article>
+        {% empty %}<p class="empty-state">У вас пока нет заявок.</p>{% endfor %}
+    </div>
+    {% else %}
+    <p class="empty-state">Для подачи заявки необходимо <a href="{% url 'login' %}">войти в аккаунт</a>.</p>
+    {% endif %}
+</section>
+
+<section class="content-section" aria-labelledby="participants-heading">
+    <div class="section-heading"><h2 id="participants-heading">Участники конференции</h2></div>
+    {% include "conferences/participant_table.html" %}
+</section>
+
+<section class="content-section" aria-labelledby="reviews-heading">
+    <div class="section-heading">
+        <h2 id="reviews-heading">Отзывы о конференции</h2>
+        {% if user.is_authenticated %}
+        <a class="button button-secondary" href="{% url 'add_review' conference.id %}">Оставить отзыв</a>
+        {% endif %}
+    </div>
+    <div class="review-list">
+        {% for review in reviews %}
+        <article class="review-card">
+            <div class="review-heading">
+                <strong>{{ review.user.username }}</strong>
+                <span class="rating">Оценка: {{ review.rating }}/10</span>
+            </div>
+            <p class="review-period">Даты конференции на момент отзыва:
+                {{ review.conference_start_date|date:"d.m.Y" }} — {{ review.conference_end_date|date:"d.m.Y" }}
+            </p>
+            <div class="review-text">{{ review.text|linebreaks }}</div>
+            <p class="review-date">{{ review.created_at|date:"d.m.Y H:i" }}</p>
+        </article>
+        {% empty %}<p class="empty-state">Отзывов пока нет.</p>{% endfor %}
+    </div>
+</section>
+
+{% endblock %}
